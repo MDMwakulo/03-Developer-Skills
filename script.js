@@ -1,42 +1,85 @@
 // Remember, we're gonna use strict mode in all scripts now!
 'use strict';
 
-const x = 10;
-const y = 'abcd';
+// PROBLEM 1
+// We work for a company building a smart home thermometer. Our
+// most recent task is this: "Given an aray of temperatures of one day, calculate the temperature amplitude.
+// Keep in mind that sometimes there might be a sensor error."
 
-const z = 'hello';
+const temperatures = [3, -2, -6, -1, 'error', 9, 13, 17, 15, 14, 9, 5],
+  temperatures2 = ['error', 'error'],
+  temperatures3 = ['error', 3, -2, -6, -1, 9, 13, 17, 15, 14, 9, 5];
 
-if (x === 20) console.log(23);
+// 1) Understanding the problem
+// - What is Temp Amplitude? Difference between minimum and maximum temperatures.
+// - How to calculate the minumum and maximum temperatures?
+// - What does a sensor 'error' mean? And what to do about it?
 
-const calcAge = birthYear => 2037 - birthYear;
+// 2) Breaking up into sub-problems
+// - How to ignore errors?
+// - Finding max and min value in the temperatures arrays
+// - Subtracting min from max temperature values and returning it
 
-console.log(calcAge(1991));
+const calcTempAmplitude = function (temps) {
+  let min, max;
 
-const reverseStr = function (x) {
-  let arr = '';
-
-  for (let i = x.length - 1; i >= 0; i--) {
-    arr += x[i];
+  for (let i = 0; i < temps.length; i++) {
+    if (typeof temps[i] !== 'number') {
+      continue;
+    } else {
+      min = temps[i];
+      max = temps[i];
+      break;
+    }
   }
 
-  return arr;
-};
-
-console.log(reverseStr(y));
-console.log(reverseStr(z));
-
-const reverseRec = function (x) {
-  debugger;
-  if (x === '') {
-    return '';
-  } else {
-    return reverseRec(x.substr(1)) + x.charAt(0);
+  for (let i = 0; i < temps.length; i++) {
+    if (typeof temps[i] !== 'number') {
+      continue;
+    } else {
+      min = Math.min(min, temps[i]);
+      max = Math.max(max, temps[i]);
+    }
   }
+  console.log({ maxVal: max, minVal: min });
+  let tempAmp = max - min;
+  return tempAmp ? tempAmp : 'error';
 };
 
-console.log(reverseRec('hello'));
+const calcTempAmplitude2 = function (temps) {
+  // debugger;
+  let max = temps[0];
+  let min = temps[0];
 
-console.log('' === 'h'.substr(1));
-console.log('');
+  for (let i = 0; i < temps.length; i++) {
+    if (typeof temps[i] !== 'number') continue;
 
-console.log();
+    if (temps[i] > max) max = temps[i];
+    if (temps[i] < min) min = temps[i];
+  }
+  return { maxVal: max, minVal: min };
+};
+
+console.log(calcTempAmplitude(temperatures3));
+
+console.log(calcTempAmplitude(temperatures2));
+
+console.log(calcTempAmplitude2(temperatures3));
+
+// PROBLEM 2
+// Function should now receive 2 arrays of temps
+
+// 1) Understanding the problem
+// - With 2 arrays, should we impliment functionality twice? NO! Just merge two arrays
+
+// 2) Breaking up into sub-problems
+// - Merge two arrays
+
+const temp4 = [3, -2, -6, -1, 'error', 9],
+  temp5 = [13, 17, 15, 14, 9, 5];
+
+const mergeTwoArr = (arr1, arr2) => arr1.concat(arr2);
+
+const mergedArr = mergeTwoArr(temp4, temp5);
+console.log(mergedArr);
+console.log(calcTempAmplitude(mergedArr));
