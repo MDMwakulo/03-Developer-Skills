@@ -84,7 +84,7 @@ const mergedArr = mergeTwoArr(temp4, temp5);
 console.log(mergedArr);
 console.log(calcTempAmplitude(mergedArr));*/
 
-const measureKelvin = function () {
+/*const measureKelvin = function () {
   const measurement = {
     type: 'temp',
     unit: 'celsius',
@@ -134,4 +134,40 @@ const mergeTwoArr = (arr1, arr2) => arr1.concat(arr2);
 
 const mergedArrBug = mergeTwoArr(temp4, temp5);
 console.log(mergedArrBug);
-console.log(calcTempAmplitudeBug(mergedArrBug));
+console.log(calcTempAmplitudeBug(mergedArrBug));*/
+
+// Coding Challenge 1
+const maxTemp = [17, 21, 23],
+  maxTemp2 = [12, 5, -5, 0, 4];
+
+const printForecast = function (temps) {
+  let string = ``;
+  for (let i = 0; i < temps.length; i++) {
+    if (i === 0) {
+      string += `... ${temps[i]}⁰C in ${i + 1} days ... `;
+    } else {
+      string += `${temps[i]}⁰C in ${i + 1} days ... `;
+    }
+  }
+  return string;
+};
+
+const maxTempMerge = (temp1, temp2) => temp1.concat(temp2);
+const mergedTemps = maxTempMerge(maxTemp, maxTemp2);
+
+console.log(maxTemp);
+console.log(printForecast(maxTemp));
+console.log(mergedTemps);
+console.log(printForecast(mergedTemps));
+
+console.log(`mama` + ` and papa`);
+
+// 1) Understanding the problem
+// - Array transformed to string separated by ...
+// - What is the X days? It  is index + 1
+
+// 2) Breaking up into sub-problems
+// - Transform array into string
+// - Transform each element to string with ⁰C
+// - Strings need to contain day (index + 1)
+// - Add ... between elements and start and end of string
